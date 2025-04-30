@@ -1,19 +1,66 @@
+function getFlags(args: string[]) {
+    const flags = {
+        deno: false,
+        trex: false,
+        help: false,
+        version: false,
+    };
+    if (args.length == 0) {
+        flags.help = true;
+    }
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] == "--help" || args[i] == "-h") {
+            flags.help = true;
+        } else if (args[i] == "--version" || args[i] == "-v") {
+            flags.version = true;
+        } else if (args[i] == "--deno" || args[i] == "-d") {
+            flags.deno = true;
+        } else if (args[i] == "--trex" || args[i] == "-t") {
+            flags.trex = true;
+        }
+    }
+    return flags;
+}
 
-// const args = ["hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello", "hello"]
+function removeFlags(args: string[]) {
+    const newArgs: string[] = [];
+    for (let i = 0; i < args.length; i++) {
+        if (args[i] != "--help" && args[i] != "-h" && args[i] != "--version" && args[i] != "-v" && args[i] != "--deno" && args[i] != "-d" && args[i] != "--trex" && args[i] != "-t") {
+            newArgs.push(args[i]);
+        }
+    }
+    return newArgs;
+}
 
-const args = Deno.args;
-
-const MAX_WIDTH = 30;
-let maxWidthSeen = 0;
-let lines: string[] = [];
-let index = 0;
-let line = "";
 
 function lineLongerThanBestSoFar(len: number) {
     if (len > maxWidthSeen)
         maxWidthSeen = len;
 }
 
+const flags = getFlags(Deno.args);
+if (flags.help) {
+    console.log("Usage: dinosay [options] [text]");
+    console.log("Options:");
+    console.log("  -h, --help     Show this help message");
+    console.log("  -v, --version  Show version information");
+    console.log("  -d, --deno     Use the Deno dinosaur");
+    console.log("  -t, --trex     Use the T-Rex dinosaur");
+    Deno.exit(0);
+}
+if (flags.version) {
+    console.log("dinosay v1.0.0");
+    Deno.exit(0);
+}
+
+const args = removeFlags(Deno.args);
+
+
+const MAX_WIDTH = 30;
+let maxWidthSeen = 0;
+let lines: string[] = [];
+let index = 0;
+let line = "";
 
 while (index < args.length) {
     if (line.length + args[index].length > MAX_WIDTH) {
@@ -28,8 +75,6 @@ while (index < args.length) {
     lineLongerThanBestSoFar(line.length);
     index++;
 }
-
-
 
 let bubble = "        __"
 for (let i = 0; i < maxWidthSeen; i++) {
@@ -63,7 +108,7 @@ for (let i = 0; i < maxWidthSeen; i++) {
 bubble += "/"
 
 
-const dino2 = `
+const trex = `
         \\/
             ___________
            /' O   O    \\
@@ -83,5 +128,20 @@ const dino2 = `
                           _/  _/    /
                          /___/_____/
 			`
-const final = bubble + dino2;
+const deno = `
+        \\/
+       __
+      / •) 
+     /  /    ____
+     \\  \\_-\`\`    \`\`-_     
+      \\              \`-_  ,
+       \`-,_   ___  ___--\`\`
+          ||_|  ||_|                
+`
+let final = bubble;
+if (flags.deno) {
+    final += deno;
+} else {
+    final += trex;
+}
 console.log(final)
