@@ -20,3 +20,43 @@ To make changes to the code, download and modify `dinosay.cpp`.
 - `--version` will display the version information
 - `-t` or `--trex` will echo your text in the trex format (this is the default)
 - `-d` or `--deno` will echo your text in the deno dinosaur format
+
+```
+          ______________
+         /              \
+        |  hello world!  |
+         \______________/
+            \/
+            ___________
+           /' O   O    \
+           \            \
+            `^^^^^^\     \
+                   /      \                       <==~,
+             /^^^^^        \                         \ \
+             \______        \                         | |
+                    \        \_________              /  |
+                     |         ____    ``----_____--`  /
+                   >-|        /    \           _____--`
+                    >-\      (      )______-----
+                       \______\     \
+                           \   \     \
+                            \   \     \
+                            /   /     /
+                          _/  _/     /
+                         /___/______/
+```
+
+```
+          ______________
+         /              \
+        |  hello world!  |
+         \______________/
+            \/
+       __
+      / •)
+     /  /    ____
+     \  \_-``    ``-_
+      \              `-_  ,
+       `-,_   ___  ___--``
+          ||_|  ||_|
+```
